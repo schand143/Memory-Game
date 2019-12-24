@@ -75,6 +75,7 @@ function click(card) {
  */
 
 function compare(currentCard, previousCard) {
+  // Matcher
   if (currentCard.innerHTML === previousCard.innerHTML) {
     // Matched
     currentCard.classList.add("match");
@@ -94,10 +95,12 @@ function compare(currentCard, previousCard) {
       currentCard.classList.remove("open", "show", "disable");
       previousCard.classList.remove("show", "show", "disable");
       // Reset Card
-      openedCard = [];
+
       // console.log("Doesn't Matched!");
     }, 500);
+    openedCard = [];
   }
+  addMoves();
 }
 
 /*
@@ -106,7 +109,7 @@ function compare(currentCard, previousCard) {
 
 function isOver() {
   if (matchedCard.length === icons.length) {
-    alert("Congratulation !!! Game is Over");
+    alert(" Game is Over !!!");
   }
 }
 
@@ -114,10 +117,48 @@ function isOver() {
  * Add moves!
  */
 
+const movesContainer = document.querySelector(".moves");
 let moves = 0;
-
+movesContainer.innerHTML = 0;
 function addMoves() {
   moves++;
+  movesContainer.innerHTML = moves;
+
+  // Set the ratings
+  ratings();
+}
+
+/*
+ * Rating!
+ */
+
+const startsContainer = document.querySelector(".starts");
+
+function ratings() {
+  // switch (moves) {
+  //   case 20:
+  //     `<li><i class="fa fa-star"></i></li>
+  //   <li><i class="fa fa-star"></i></li>`;
+  //     break;
+
+  //   case 25:
+  //     `<li><i class="fa fa-star"></i></li>`;
+  //     break;
+  // }
+
+  startsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>`;
+  if (moves < 25) {
+    startsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`;
+  } else if (moves > 25) {
+    startsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+  } else {
+    startsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>`;
+  }
 }
 
 /*
@@ -135,6 +176,11 @@ restartBtn.addEventListener("click", function() {
 
   // Reset any RELATED variable!
   matchedCard = [];
+  moves = 0;
+  movesContainer.innerHTML = moves;
+  startsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>`;
 });
 
 /*-------- Start the game first time !!!!!--------------*/
